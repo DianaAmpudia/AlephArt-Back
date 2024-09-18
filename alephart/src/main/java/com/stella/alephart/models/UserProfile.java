@@ -2,9 +2,10 @@ package com.stella.alephart.models;
 
 
 import java.util.Arrays;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -13,11 +14,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="userprofile")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id_user_profile")
 public class UserProfile {
 	
 	@Id
@@ -36,16 +39,15 @@ public class UserProfile {
 	@Column
 	private String profession;
 	
-	 // USERPROFILE O:O USER -- Relación inversa 
-	@OneToOne(mappedBy = "userProfile") // Con mappedBy -> userP no es la propietaria de la relación
-	@JsonBackReference
+	@OneToOne(mappedBy = "userProfile")
     private User user;
-	
-	// USERPROFILE O:O BOOK
-	@OneToOne(cascade = CascadeType.ALL)
+    
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "book_id_book", referencedColumnName = "id_book")
-	@JsonManagedReference
     private Book book;
+
+    @OneToMany(mappedBy = "userProfile")
+    private List<Posts> posts;
 
 	
 	public UserProfile() {}
@@ -142,7 +144,6 @@ public class UserProfile {
 	}
 
 
-	
 	
 	
 }

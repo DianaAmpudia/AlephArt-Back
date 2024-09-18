@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.stella.alephart.dto.CommentDTO;
+import com.stella.alephart.dto.CommentUpdateDTO;
 import com.stella.alephart.models.Comments;
 import com.stella.alephart.services.CommentsService;
 
@@ -39,10 +39,10 @@ public class CommentsController {
 	 
 	 
 	 @PutMapping("/{id}")
-	 public ResponseEntity<Comments> updateComment(@PathVariable Long id, @RequestBody Comments comment) {
+	    public ResponseEntity<Comments> updateComment(@PathVariable("id") Long id, @RequestBody CommentUpdateDTO commentUpdateDTO) {
 	        try {
-	            Comments updatedComment = commentsService.updateComment(id, comment);
-	            return new ResponseEntity<>(updatedComment, HttpStatus.OK);
+	            Comments updatedComment = commentsService.updateComment(id, commentUpdateDTO);
+	            return ResponseEntity.ok(updatedComment);
 	        } catch (RuntimeException e) {
 	            return ResponseEntity.notFound().build();
 	        }
@@ -50,19 +50,14 @@ public class CommentsController {
 	 
 	
 	 @PostMapping
-	    public ResponseEntity<Comments> createComment(
-	            @RequestBody Comments comment,
-	            @RequestParam Long postId,
-	            @RequestParam Long userId) {
+	    public ResponseEntity<Comments> createComment(@RequestBody CommentDTO commentDTO) {
 	        try {
-	            Comments savedComment = commentsService.saveComment(comment, postId, userId);
+	            Comments savedComment = commentsService.saveComment(commentDTO);
 	            return ResponseEntity.status(HttpStatus.CREATED).body(savedComment);
 	        } catch (RuntimeException e) {
 	            return ResponseEntity.badRequest().body(null);
 	        }
 	    }
-	 
-	 // localhost:  /api/comments?postId=1&userId=2
 	
 
 	@DeleteMapping("/{id}")

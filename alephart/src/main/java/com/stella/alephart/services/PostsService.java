@@ -6,9 +6,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.stella.alephart.dto.PostCreateDTO;
 import com.stella.alephart.models.Posts;
 import com.stella.alephart.models.User;
+import com.stella.alephart.models.UserProfile;
 import com.stella.alephart.repository.PostsRepository;
+import com.stella.alephart.repository.UserProfileRepository;
 import com.stella.alephart.repository.UserRepository;
 
 @Service
@@ -19,6 +22,9 @@ public class PostsService {
     
 	@Autowired
     private UserRepository userRepository;
+	
+	@Autowired
+    private UserProfileRepository userProfileRepository;
     
 	//GET
 	
@@ -31,11 +37,19 @@ public class PostsService {
 	}
 	
 	//POST
-	public Posts savePost(Posts post, Long userId) {
-        User user = userRepository.findById(userId)
-            .orElseThrow(() -> new RuntimeException("El User con el id " + userId + " no fue encontrado"));
+	public Posts savePost(PostCreateDTO postCreateDTO) {
+        User user = userRepository.findById(postCreateDTO.getUserId())
+            .orElseThrow(() -> new RuntimeException("User not found"));
+        
+        UserProfile userProfile = userProfileRepository.findById(postCreateDTO.getUserProfileId())
+            .orElseThrow(() -> new RuntimeException("UserProfile not found"));
+
+        Posts post = new Posts();
+        post.setPost_date(postCreateDTO.getPost_date());
+        post.setPost_description(postCreateDTO.getPost_description());
         post.setUser(user);
-        post.setUserProfile(user.getUserProfile());  // User método getUserProfile()
+        post.setUserProfile(userProfile);
+
         return postRepository.save(post);
     }
 	

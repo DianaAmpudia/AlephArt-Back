@@ -2,6 +2,7 @@ package com.stella.alephart.models;
 
 import java.util.Arrays;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,6 +38,14 @@ public class Events {
 	private String event_time; //Checar tipo de dato en BD SQL
 	
 	@ManyToOne
+	@JoinColumn(name="user_id_user", nullable = false)
+	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_userprofile_id_user_profile", nullable = false)
+	private UserProfile userProfile;
+	
+	@ManyToOne
     @JoinColumn(name = "eventmode_id_event_mode", referencedColumnName = "id_event_mode", nullable = false)
     private EventMode eventMode;
 	
@@ -55,8 +64,8 @@ public class Events {
 	public Events () {}
 
 	public Events(Long id_events, String event_name, String event_description, byte[] event_photo, String event_date,
-			String event_time, EventMode eventMode, EventCategory eventCategory, LocationCity locationCity,
-			LocationState locationState) {
+			String event_time, User user, UserProfile userProfile, EventMode eventMode, EventCategory eventCategory,
+			LocationCity locationCity, LocationState locationState) {
 		super();
 		this.id_events = id_events;
 		this.event_name = event_name;
@@ -64,6 +73,8 @@ public class Events {
 		this.event_photo = event_photo;
 		this.event_date = event_date;
 		this.event_time = event_time;
+		this.user = user;
+		this.userProfile = userProfile;
 		this.eventMode = eventMode;
 		this.eventCategory = eventCategory;
 		this.locationCity = locationCity;
@@ -118,6 +129,22 @@ public class Events {
 		this.event_time = event_time;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public UserProfile getUserProfile() {
+		return userProfile;
+	}
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
+	}
+
 	public EventMode getEventMode() {
 		return eventMode;
 	}
@@ -154,10 +181,11 @@ public class Events {
 	public String toString() {
 		return "Events [id_events=" + id_events + ", event_name=" + event_name + ", event_description="
 				+ event_description + ", event_photo=" + Arrays.toString(event_photo) + ", event_date=" + event_date
-				+ ", event_time=" + event_time + ", eventMode=" + eventMode + ", eventCategory=" + eventCategory
-				+ ", locationCity=" + locationCity + ", locationState=" + locationState + "]";
+				+ ", event_time=" + event_time + ", user=" + user + ", userProfile=" + userProfile + ", eventMode="
+				+ eventMode + ", eventCategory=" + eventCategory + ", locationCity=" + locationCity + ", locationState="
+				+ locationState + "]";
 	}
-	 
+
 	
 	 
 }

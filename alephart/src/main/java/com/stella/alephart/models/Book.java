@@ -30,19 +30,18 @@ public class Book {
 	@Column
 	private String book_description;
 	
-	public Book() {}
-	
 	@OneToOne(mappedBy = "book")
-	@JsonBackReference 
-	private UserProfile userProfile;
+    @JsonBackReference("userProfile-book")
+    private UserProfile userProfile;
+	
+	public Book() {}
 
-	public Book(Long id_book, byte[] book_photo, String book_name, String book_description, UserProfile userProfile) {
+	public Book(Long id_book, byte[] book_photo, String book_name, String book_description) {
 		super();
 		this.id_book = id_book;
 		this.book_photo = book_photo;
 		this.book_name = book_name;
 		this.book_description = book_description;
-		this.userProfile = userProfile;
 	}
 
 	public Long getId_book() {
@@ -77,19 +76,13 @@ public class Book {
 		this.book_description = book_description;
 	}
 
-	public UserProfile getUserProfile() {
-		return userProfile;
-	}
-
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
-	}
-
 	@Override
 	public String toString() {
 		return "Book [id_book=" + id_book + ", book_photo=" + Arrays.toString(book_photo) + ", book_name=" + book_name
-				+ ", book_description=" + book_description + ", userProfile=" + userProfile + "]";
-	} 
+				+ ", book_description=" + book_description + "]";
+	}
+	
+
 	
 	
 }

@@ -36,7 +36,7 @@ public class BooksController {
 
 		//Get para un sólo book
 		@GetMapping("/{id}") 
-		public ResponseEntity<Book> getBookById(@PathVariable Long id) {
+		public ResponseEntity<Book> getBookById(@PathVariable("id") Long id) {
 				return bookService.findBookById(id)
 						.map(ResponseEntity::ok) 
 						.orElse(ResponseEntity.notFound().build()); 
@@ -49,7 +49,7 @@ public class BooksController {
 		
 		//PUT #EDIT
 		@PutMapping("/{id}")
-		public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book) {
+		public ResponseEntity<Book> updateBook(@PathVariable("id") Long id, @RequestBody Book book) {
 		    try {
 		        Book updatedBook = bookService.updateBook(id, book);
 		        return ResponseEntity.ok(updatedBook); 
@@ -60,7 +60,7 @@ public class BooksController {
 		
 		//DELETE
 		@DeleteMapping("/{id}")
-		public ResponseEntity<Void> deleteBook(@PathVariable Long id){
+		public ResponseEntity<Void> deleteBook(@PathVariable("id") Long id){
 			return bookService.findBookById(id) 
 						.map(book ->{
 							bookService.deleteBook(id);

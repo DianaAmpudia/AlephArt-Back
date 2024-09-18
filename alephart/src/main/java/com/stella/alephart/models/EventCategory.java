@@ -1,19 +1,11 @@
 package com.stella.alephart.models;
 
-import java.util.HashSet;
-import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import io.micrometer.observation.Observation.Event;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,11 +19,6 @@ public class EventCategory {
 	@Column
 	private String category_name;
 	
-	@OneToMany(mappedBy = "eventCategory", cascade = CascadeType.ALL)
-	@JsonManagedReference
-	private Set<Events> events = new HashSet<>(); 
-	// set pa no permitir duplicados (solo un eventCategory por event)
-	// inizializarlo para que apunte a algún lado
 	
 	public EventCategory(){}
 	

@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -20,6 +21,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="posts")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id_posts")
 public class Posts {
 	
 	@Id
@@ -40,15 +42,14 @@ public class Posts {
 	//FK user_userprofile_id_user_profile
 	
 	@ManyToOne
-	@JoinColumn(name="user_id_user", nullable = false)
-	private User user;
-	
-	@ManyToOne
-	@JoinColumn(name = "user_userprofile_id_user_profile", nullable = false)
-	private UserProfile userProfile;
-	
-	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference
+    @JoinColumn(name="user_id_user", nullable = false)
+    private User user;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_userprofile_id_user_profile", nullable = false)
+    private UserProfile userProfile;
+    
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comments> comments = new ArrayList<>();
 	
 	public Posts() {}

@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.stella.alephart.dto.EventCreateDTO;
 import com.stella.alephart.models.Events;
 import com.stella.alephart.services.EventsService;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/api/events")
@@ -36,19 +38,24 @@ public class EventsController {
 				.orElse(ResponseEntity.notFound().build());}
 	 
 	 @PutMapping("/{id}")
-	 public ResponseEntity<Events> updateEvent(@PathVariable Long id, @RequestBody Events event) {
-	        try {
-	            Events updatedEvent = eventsService.updateEvent(id, event);
-	            return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
-	        } catch (RuntimeException e) {
-	            return ResponseEntity.notFound().build();
-	        }
-	    }
+	 public ResponseEntity<Events> updateEvent(@PathVariable("id") Long id, @RequestBody Events event) {
+	     try {
+	         Events updatedEvent = eventsService.updateEvent(id, event);
+	         return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
+	     } catch (EntityNotFoundException e) {
+	         return ResponseEntity.notFound().build();
+	     }
+	 }
 	 
 	 @PostMapping
-		public Events createEvents(@RequestBody Events events) {
-			return eventsService.saveEvent(events);
-		}
+	 public ResponseEntity<Events> createEvents(@RequestBody EventCreateDTO eventDTO) {
+	     try {
+	         Events event = eventsService.createEventFromDTO(eventDTO);
+	         return new ResponseEntity<>(event, HttpStatus.CREATED);
+	     } catch (EntityNotFoundException e) {
+	         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	     }
+	 }
 		
 
 		@DeleteMapping("/{id}")

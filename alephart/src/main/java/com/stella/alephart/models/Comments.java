@@ -1,6 +1,8 @@
 package com.stella.alephart.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,6 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="comments")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id_comment")
 public class Comments {
 	
 	@Id
@@ -25,17 +28,15 @@ public class Comments {
 	
 	@ManyToOne
     @JoinColumn(name = "posts_id_posts", nullable = false)
-	@JsonBackReference
     private Posts post;
-	
-	@ManyToOne
-	@JoinColumn(name="user_id_user", nullable = false)
-	@JsonBackReference
-	private User user;
-	
-	@ManyToOne
-	@JoinColumn(name = "user_userprofile_id_user_profile", nullable = false)
-	private UserProfile userProfile;
+    
+    @ManyToOne
+    @JoinColumn(name="user_id_user", nullable = false)
+    private User user;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_userprofile_id_user_profile", nullable = false)
+    private UserProfile userProfile;
 	
 	public Comments() {}
 
