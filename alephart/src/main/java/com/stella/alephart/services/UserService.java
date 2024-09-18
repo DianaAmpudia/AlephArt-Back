@@ -10,6 +10,8 @@ import com.stella.alephart.models.Book;
 import com.stella.alephart.models.User;
 import com.stella.alephart.models.UserProfile;
 import com.stella.alephart.repository.BookRepository;
+import com.stella.alephart.repository.CommentsRepository;
+import com.stella.alephart.repository.PostsRepository;
 import com.stella.alephart.repository.UserProfileRepository;
 import com.stella.alephart.repository.UserRepository;
 
@@ -27,6 +29,12 @@ public class UserService {
 	
 	@Autowired
 	private BookRepository bookRepository;
+	
+	@Autowired
+	private CommentsRepository commentRepository;
+	
+    @Autowired
+    private PostsRepository postsRepository;
 	
 	
 	public List<User> findAllUsers() {
@@ -89,24 +97,8 @@ public class UserService {
 	
 	public void deleteUser(Long id) {
 	    User existingUser = userRepository.findById(id)
-	            .orElseThrow(() -> new EntityNotFoundException("User not found"));
-	    
-	    // Primero, elimina el User
-	    System.out.println("Deleting user: " + existingUser.getId_user());
+	            .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
 	    userRepository.delete(existingUser);
-
-	    // Luego, elimina el UserProfile y el Book
-	    UserProfile profile = existingUser.getUserProfile();
-	    if (profile != null) {
-	        Book book = profile.getBook();
-	        if (book != null) {
-	            System.out.println("Deleting book: " + book.getId_book());
-	            bookRepository.delete(book);
-	        }
-	        
-	        System.out.println("Deleting userProfile: " + profile.getId_user_profile());
-	        userProfileRepository.delete(profile);
-	    }
 	}
 
 }

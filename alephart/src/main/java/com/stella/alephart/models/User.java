@@ -46,15 +46,21 @@ public class User {
     @JoinColumn(name = "userprofile_id_user_profile", referencedColumnName = "id_user_profile")
     private UserProfile userProfile;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Posts> posts;
-	
+    
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comments> comments;
+    
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Events> events;
+   
 
 	public User() {}
 
 
 	public User(Long id_user, String first_name, String last_name, String phone_number, String password, String email,
-			UserProfile userProfile) {
+			UserProfile userProfile, List<Posts> posts, List<Comments> comments) {
 		super();
 		this.id_user = id_user;
 		this.first_name = first_name;
@@ -63,6 +69,8 @@ public class User {
 		this.password = password;
 		this.email = email;
 		this.userProfile = userProfile;
+		this.posts = posts;
+		this.comments = comments;
 	}
 
 
@@ -136,14 +144,33 @@ public class User {
 	}
 
 
+	public List<Posts> getPosts() {
+		return posts;
+	}
+
+
+	public void setPosts(List<Posts> posts) {
+		this.posts = posts;
+	}
+
+
+	public List<Comments> getComments() {
+		return comments;
+	}
+
+
+	public void setComments(List<Comments> comments) {
+		this.comments = comments;
+	}
+
+
 	@Override
 	public String toString() {
 		return "User [id_user=" + id_user + ", first_name=" + first_name + ", last_name=" + last_name
 				+ ", phone_number=" + phone_number + ", password=" + password + ", email=" + email + ", userProfile="
-				+ userProfile + "]";
+				+ userProfile + ", posts=" + posts + ", comments=" + comments + "]";
 	}
 
 
 
-	
 }
