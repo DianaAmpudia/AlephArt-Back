@@ -9,12 +9,7 @@ import org.springframework.stereotype.Service;
 import com.stella.alephart.models.Book;
 import com.stella.alephart.models.User;
 import com.stella.alephart.models.UserProfile;
-import com.stella.alephart.repository.BookRepository;
-import com.stella.alephart.repository.CommentsRepository;
-import com.stella.alephart.repository.PostsRepository;
-import com.stella.alephart.repository.UserProfileRepository;
 import com.stella.alephart.repository.UserRepository;
-
 import jakarta.persistence.EntityNotFoundException;
 
 
@@ -23,20 +18,7 @@ public class UserService {
 	// Inyección de dependencias
 	@Autowired
 	private UserRepository userRepository;
-	
-	@Autowired
-    private UserProfileRepository userProfileRepository;
-	
-	@Autowired
-	private BookRepository bookRepository;
-	
-	@Autowired
-	private CommentsRepository commentRepository;
-	
-    @Autowired
-    private PostsRepository postsRepository;
-	
-	
+
 	public List<User> findAllUsers() {
         return userRepository.findAll();
     }
