@@ -28,5 +28,12 @@ public class CommentUpdateDTO {
     public void setCommentDescription(String commentDescription) {
         this.commentDescription = commentDescription;
     }
+
+	@Override
+	public String toString() {
+		return "CommentUpdateDTO [id=" + id + ", commentDescription=" + commentDescription + "]";
+	}
+    
+    
 }
 

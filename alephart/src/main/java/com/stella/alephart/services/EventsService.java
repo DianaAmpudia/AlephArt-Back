@@ -59,27 +59,27 @@ public class EventsService {
 	    event.setEvent_time(dto.getEvent_time());
 
 	    User user = userRepository.findById(dto.getUserId())
-	        .orElseThrow(() -> new EntityNotFoundException("User not found"));
+	        .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
 	    event.setUser(user);
 
 	    UserProfile userProfile = userProfileRepository.findById(dto.getUserProfileId())
-	        .orElseThrow(() -> new EntityNotFoundException("UserProfile not found"));
+	        .orElseThrow(() -> new EntityNotFoundException("UserProfile no encontrado"));
 	    event.setUserProfile(userProfile);
 
 	    EventMode eventMode = eventModeRepository.findById(dto.getEventModeId())
-	        .orElseThrow(() -> new EntityNotFoundException("EventMode not found"));
+	        .orElseThrow(() -> new EntityNotFoundException("EventMode no encontrado"));
 	    event.setEventMode(eventMode);
 
 	    EventCategory eventCategory = eventCategoryRepository.findById(dto.getEventCategoryId())
-	        .orElseThrow(() -> new EntityNotFoundException("EventCategory not found"));
+	        .orElseThrow(() -> new EntityNotFoundException("EventCategory no encontrado"));
 	    event.setEventCategory(eventCategory);
 
 	    LocationCity locationCity = locationCityRepository.findById(dto.getLocationCityId())
-	        .orElseThrow(() -> new EntityNotFoundException("LocationCity not found"));
+	        .orElseThrow(() -> new EntityNotFoundException("LocationCity no encontrado"));
 	    event.setLocationCity(locationCity);
 
 	    LocationState locationState = locationStateRepository.findById(dto.getLocationStateId())
-	        .orElseThrow(() -> new EntityNotFoundException("LocationState not found"));
+	        .orElseThrow(() -> new EntityNotFoundException("LocationState no encontrado"));
 	    event.setLocationState(locationState);
 
 	    return eventsRepository.save(event);
@@ -95,29 +95,27 @@ public class EventsService {
 
                 if (event.getEventMode() != null) {
                     EventMode eventMode = eventModeRepository.findById(event.getEventMode().getId_event_mode())
-                        .orElseThrow(() -> new EntityNotFoundException("EventMode not found"));
+                        .orElseThrow(() -> new EntityNotFoundException("EventMode no encontrado"));
                     existingEvent.setEventMode(eventMode);
                 }
 
                 if (event.getEventCategory() != null) {
                     EventCategory eventCategory = eventCategoryRepository.findById(event.getEventCategory().getId_event_category())
-                        .orElseThrow(() -> new EntityNotFoundException("EventCategory not found"));
+                        .orElseThrow(() -> new EntityNotFoundException("EventCategory no encontrado"));
                     existingEvent.setEventCategory(eventCategory);
                 }
 
                 if (event.getLocationCity() != null) {
                     LocationCity locationCity = locationCityRepository.findById(event.getLocationCity().getId_location_city())
-                        .orElseThrow(() -> new EntityNotFoundException("LocationCity not found"));
+                        .orElseThrow(() -> new EntityNotFoundException("LocationCity no encontrado"));
                     existingEvent.setLocationCity(locationCity);
                 }
 
                 if (event.getLocationState() != null) {
                     LocationState locationState = locationStateRepository.findById(event.getLocationState().getId_location_state())
-                        .orElseThrow(() -> new EntityNotFoundException("LocationState not found"));
+                        .orElseThrow(() -> new EntityNotFoundException("LocationState no encontrado"));
                     existingEvent.setLocationState(locationState);
                 }
-
-                // No actualizamos user y userProfile aquí, ya que normalmente no cambiarían en una actualización
 
                 return eventsRepository.save(existingEvent);
             })

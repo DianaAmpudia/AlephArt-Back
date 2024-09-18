@@ -39,16 +39,17 @@ public class PostsService {
 	//POST
 	public Posts savePost(PostCreateDTO postCreateDTO) {
         User user = userRepository.findById(postCreateDTO.getUserId())
-            .orElseThrow(() -> new RuntimeException("User not found"));
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         
         UserProfile userProfile = userProfileRepository.findById(postCreateDTO.getUserProfileId())
-            .orElseThrow(() -> new RuntimeException("UserProfile not found"));
+            .orElseThrow(() -> new RuntimeException("UserProfile no encontrado"));
 
         Posts post = new Posts();
         post.setPost_date(postCreateDTO.getPost_date());
+        post.setPost_file(postCreateDTO.getPost_file()); 
         post.setPost_description(postCreateDTO.getPost_description());
         post.setUser(user);
-        post.setUserProfile(userProfile);
+        post.setUserProfile(userProfile); 
 
         return postRepository.save(post);
     }

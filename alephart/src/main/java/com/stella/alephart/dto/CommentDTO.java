@@ -50,4 +50,11 @@ public class CommentDTO {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+	@Override
+	public String toString() {
+		return "CommentDTO [commentDate=" + commentDate + ", commentDescription=" + commentDescription + ", postId="
+				+ postId + ", userId=" + userId + "]";
+	}
+    
 }
