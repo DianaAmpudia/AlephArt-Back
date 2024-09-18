@@ -1,8 +1,11 @@
 package com.stella.alephart.dto;
 
+import java.util.Arrays;
+
 public class EventCreateDTO {
 	private String event_name;
     private String event_description;
+    private byte[] event_photo;
     private String event_date;
     private String event_time;
     private Long userId;
@@ -13,13 +16,14 @@ public class EventCreateDTO {
     private Long locationStateId;
     
     public EventCreateDTO() {}
-    
-	public EventCreateDTO(String event_name, String event_description, String event_date, String event_time,
-			Long userId, Long userProfileId, Long eventModeId, Long eventCategoryId, Long locationCityId,
-			Long locationStateId) {
+
+	public EventCreateDTO(String event_name, String event_description, byte[] event_photo, String event_date,
+			String event_time, Long userId, Long userProfileId, Long eventModeId, Long eventCategoryId,
+			Long locationCityId, Long locationStateId) {
 		super();
 		this.event_name = event_name;
 		this.event_description = event_description;
+		this.event_photo = event_photo;
 		this.event_date = event_date;
 		this.event_time = event_time;
 		this.userId = userId;
@@ -44,6 +48,14 @@ public class EventCreateDTO {
 
 	public void setEvent_description(String event_description) {
 		this.event_description = event_description;
+	}
+
+	public byte[] getEvent_photo() {
+		return event_photo;
+	}
+
+	public void setEvent_photo(byte[] event_photo) {
+		this.event_photo = event_photo;
 	}
 
 	public String getEvent_date() {
@@ -112,12 +124,13 @@ public class EventCreateDTO {
 
 	@Override
 	public String toString() {
-		return "EventCreateDTO [event_name=" + event_name + ", event_description=" + event_description + ", event_date="
-				+ event_date + ", event_time=" + event_time + ", userId=" + userId + ", userProfileId=" + userProfileId
-				+ ", eventModeId=" + eventModeId + ", eventCategoryId=" + eventCategoryId + ", locationCityId="
-				+ locationCityId + ", locationStateId=" + locationStateId + "]";
+		return "EventCreateDTO [event_name=" + event_name + ", event_description=" + event_description
+				+ ", event_photo=" + Arrays.toString(event_photo) + ", event_date=" + event_date + ", event_time="
+				+ event_time + ", userId=" + userId + ", userProfileId=" + userProfileId + ", eventModeId="
+				+ eventModeId + ", eventCategoryId=" + eventCategoryId + ", locationCityId=" + locationCityId
+				+ ", locationStateId=" + locationStateId + "]";
 	}
     
-    
+	
 
 }

@@ -68,5 +68,24 @@ public class PostsController {
 					})
 					.orElse(ResponseEntity.notFound().build());
 		}
+			
+		/*
+		 
+		POST
+
+		{
+		"post_date":"2024-09-17",
+		"post_file": null,
+		"post_description": "descripción de la publicación",
+		"userId": 2,
+		"userProfileId": 2
+		}
+
+		PUT
+		{
+		"post_description": "Descripción actualizada"
+		}
+		 
+		 * */
 
 }

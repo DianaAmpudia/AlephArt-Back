@@ -69,6 +69,20 @@ public class BooksController {
 						.orElse(ResponseEntity.notFound().build()); 
 		}
 
+		/*
+		 * 	 
+		 PUT
+		/api/books/12
+		 **Se coloca el ID del book que se quiere modificar en la URL
+
+		{
+		"book_photo": null,
+		"book_name": "Nombre del portafolio actualizado",
+		"book_description": "Descripción del portafolio actualizado."
+		}
+		 
+		 * 
+		 * */
 	
 	
 }

@@ -61,5 +61,21 @@ public class UserProfileController {
 	        }
 	    } 
 	 
+	 /*
+	  * 
+	  PUT
+		/api/userProfile/9 
+	  	**Se coloca el id del userProfile que se quiere modificar
+
+		{
+		    "profile_photo": null,
+		    "banner": null,
+		    "about_me": "About me",
+		    "profession": "Profesión"
+		}
+	  
+	  * 
+	  * */
+	 
 	 
 }

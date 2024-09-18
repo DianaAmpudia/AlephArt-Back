@@ -71,5 +71,29 @@ public class CommentsController {
 		}
 	
 	
+	/*
 
+	 POST
+		{
+		"commentDate": "2024-09-18",
+		"commentDescription": "Comentario",
+		"postId": 9,
+		"userId": 2
+		}
+
+	PUT
+		
+		{
+		"commentDescription": "Comentario Actualizado"
+		}
+
+	 
+	 * */
+	
 }
+
+
+
+
+
+

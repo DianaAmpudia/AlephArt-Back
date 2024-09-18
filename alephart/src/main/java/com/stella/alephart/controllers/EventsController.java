@@ -67,5 +67,25 @@ public class EventsController {
 						})
 						.orElse(ResponseEntity.notFound().build());
 			}
+		
+		/*
+		 * 
+		 POST /Para put se colocan los atributos que se quieren modificar
+		{
+		"event_name": "Nombre del evento",
+		"event_description": "Descripción del evento",
+		"event_photo": null,
+		"event_date": "2024-09-18",
+		"event_time": "17:36:36",
+		"userId": 2,
+		"userProfileId": 2,
+		"eventModeId": 1,
+		"eventCategoryId": 3,
+		"locationCityId": 5,
+		"locationStateId": 5
+		}
+
+		 * 
+		 * */
 
 }

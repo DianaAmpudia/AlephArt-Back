@@ -68,6 +68,22 @@ public class UserController {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	}
+	
+	/*
+	 * 
+	
+	POST
+	 
+	{
+	"first_name": "Nombre",
+	"last_name": "Apellido",
+	"phone_number": "5612836477",
+	"password": "password@Us",
+	"email": "usuario@gmail.com"
+	}
+
+	 * 
+	 * */
 
 
 }

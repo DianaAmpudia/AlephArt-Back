@@ -79,6 +79,15 @@ public class PostCreateDTO {
 				+ ", post_description=" + post_description + ", userId=" + userId + ", userProfileId=" + userProfileId
 				+ "]";
 	}
+	
+	/*
+	 {
+	"post_date":"2024-09-17",
+	"post_file": null,
+	"post_description": "Prueba para comentarios códigodescripción",
+	"userId": 2,
+	"userProfileId": 2
+}*/
 
     
 }
