@@ -2,9 +2,12 @@ package com.stella.alephart.dto;
 
 import java.util.Arrays;
 
+import jakarta.persistence.Lob;
+
 public class EventCreateDTO {
 	private String event_name;
     private String event_description;
+    @Lob
     private byte[] event_photo;
     private String event_date;
     private String event_time;

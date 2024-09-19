@@ -15,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -36,6 +37,7 @@ public class Posts {
 	private String post_description;
 	
 	@Column(name="post_file")
+	@Lob
 	private byte[] post_file;
 	
 	//FK user_id_user

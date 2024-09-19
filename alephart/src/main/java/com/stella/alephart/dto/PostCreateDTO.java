@@ -2,8 +2,11 @@ package com.stella.alephart.dto;
 
 import java.util.Arrays;
 
+import jakarta.persistence.Lob;
+
 public class PostCreateDTO {
     private String post_date;
+    @Lob
     private byte[] post_file;  
     private String post_description;
     private Long userId;

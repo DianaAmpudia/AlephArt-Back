@@ -1,8 +1,11 @@
 package com.stella.alephart.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.stella.alephart.dto.PostCreateDTO;
 import com.stella.alephart.models.Posts;
@@ -37,15 +42,31 @@ public class PostsController {
 					.orElse(ResponseEntity.notFound().build());
 		}
 		
-		 @PostMapping
-		    public ResponseEntity<Posts> createPost(@RequestBody PostCreateDTO postCreateDTO) {
-		        try {
-		            Posts createdPost = postService.savePost(postCreateDTO);
-		            return ResponseEntity.ok(createdPost);
-		        } catch (RuntimeException e) {
-		            return ResponseEntity.badRequest().body(null);
-		        }
+		@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+		public ResponseEntity<Posts> createPost(
+		        @RequestPart("post_file") MultipartFile postFile,
+		        @RequestPart("post_date") String postDate,
+		        @RequestPart("post_description") String postDescription,
+		        @RequestPart("userId") Long userId,
+		        @RequestPart("userProfileId") Long userProfileId) {
+		    try {
+		        // Convierte MultipartFile a byte[]
+		        byte[] fileBytes = postFile.getBytes();
+
+		        // Crea el DTO con los bytes del archivo
+		        PostCreateDTO postCreateDTO = new PostCreateDTO(postDate, fileBytes, postDescription, userId, userProfileId);
+
+		      
+		        Posts createdPost = postService.savePost(postCreateDTO);
+		        return ResponseEntity.ok(createdPost);
+		    } catch (IOException e) {
+		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+		    } catch (RuntimeException e) {
+		        return ResponseEntity.badRequest().body(null);
 		    }
+		}
+
+		 
 		
 		// PUT
 		@PutMapping("/{id}")
