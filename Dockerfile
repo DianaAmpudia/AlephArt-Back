@@ -5,13 +5,13 @@ FROM eclipse-temurin:21-jdk AS build
 WORKDIR /app
 
 # Copy the Gradle wrapper and build files
-COPY gradlew gradlew
-COPY gradle gradle
-COPY build.gradle .
-COPY settings.gradle .
+COPY alephart/gradlew gradlew
+COPY alephart/gradle gradle
+COPY alephart/build.gradle .
+COPY alephart/settings.gradle .
 
 # Copy the source code
-COPY src src
+COPY alephart/src src
 
 # Grant execution rights to the Gradle wrapper
 RUN chmod +x gradlew
