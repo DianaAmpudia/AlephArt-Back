@@ -27,6 +27,7 @@ WORKDIR /app
 
 # Copy the built jar file from the build stage
 COPY --from=build /app/build/libs/*.jar app.jar
+ENV SPRING_PROFILES_ACTIVE=prod
 
 # Expose the port that your application runs on
 EXPOSE 8080
