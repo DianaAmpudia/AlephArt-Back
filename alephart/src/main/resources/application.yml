@@ -1,0 +1,19 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          auth0:
+            client-id: 8LWiPthbdEHyavtUZrKsoio0LzwaqbuJ
+            client-secret: k_DJd-SOoegjQK2zKL1ZsD0nxQ3xq8J-hXM8o5XXNoAfohJYT7IS60U3oYj9JS5K
+            scope: openid profile email
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            authorization-grant-type: authorization_code
+            client-name: Auth0
+            provider: auth0
+        provider:
+          auth0:
+            authorization-uri: https://dev-vn2arrd4wrvsr5m1.us.auth0.com/authorize
+            token-uri: https://dev-vn2arrd4wrvsr5m1.us.auth0.com/oauth/token
+            user-info-uri: https://dev-vn2arrd4wrvsr5m1.us.auth0.com/userinfo
+            user-name-attribute: sub
